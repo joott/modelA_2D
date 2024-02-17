@@ -13,7 +13,7 @@ function main()
         thermalize(ϕ, m², L^3)
         @show i
         flush(stdout)
-        jldsave("/home/josh/modelA_2D/thermalized/thermalized_L_$(L)_mass_$(mass_id)_id_$(seed).jld2", true; ϕ=Array(ϕ), m²)
+        jldsave("/home/jkott/perm/modelA_2D/thermalized/thermalized_L_$(L)_mass_$(mass_id)_id_$(seed).jld2", true; ϕ=Array(ϕ), m²)
     end
 end
 

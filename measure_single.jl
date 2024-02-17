@@ -10,33 +10,25 @@ function op(ϕ)
     (sum(ϕ)/L^2, sum(ϕ.^2))
 end
 
-function run_m²(ϕ, m²0)
+function main()
+    @init_state
+
     maxt = L^3
     skip = 100
-    mass_id = round(m²0, digits=3)
+    mass_id = round(m², digits=3)
+    thermalize(ϕ, m², L^3)
 
-    open("/home/josh/modelA_2D/measurements/magnetization_L_$(L)_mass_$(mass_id)_id_$(seed).dat", "w") do io
+    open("/home/jkott/perm/modelA_2D/measurements/magnetization_L_$(L)_mass_$(mass_id)_id_$(seed).dat", "w") do io
     for i in 0:maxt
         (M, ϕ2) = op(ϕ)
         Printf.@printf(io, "%i %f %f\n", i, M, ϕ2)
 
-        thermalize(ϕ, m²0, skip)
+        thermalize(ϕ, m², skip)
 
-        if maxt%L == 0
+        if i%L == 0
             flush(stdout)
         end
     end
-    end
-end
-
-function main()
-    @init_state
-
-    thermalize(ϕ, -3.0, L^4)
-
-    for m²0 in -3.0:-0.005:-3.5
-        thermalize(ϕ, m²0, L^3)
-        run_m²(ϕ, m²0)
     end
 end
 

@@ -27,7 +27,7 @@ function parse_commandline()
             arg_type = String
         "--cpu"
             help = "parallelize on CPU rather than GPU"
-            arg_type = :store_true
+            action = :store_true
         "size"
             help = "side length of lattice"
             arg_type = Int
