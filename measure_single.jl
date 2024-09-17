@@ -13,10 +13,11 @@ end
 function main()
     @init_state
 
-    maxt = L^3
-    skip = 100
+    thermalize(ϕ, m², L^2)
+
+    maxt = 100L^2
+    skip = div(L^2,8)
     mass_id = round(m², digits=3)
-    thermalize(ϕ, m², L^3)
 
     open("/home/jkott/perm/modelA_2D/measurements/magnetization_L_$(L)_mass_$(mass_id)_id_$(seed).dat", "w") do io
     for i in 0:maxt
@@ -25,9 +26,7 @@ function main()
 
         thermalize(ϕ, m², skip)
 
-        if i%L == 0
-            flush(stdout)
-        end
+        flush(stdout)
     end
     end
 end

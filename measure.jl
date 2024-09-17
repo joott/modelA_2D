@@ -11,11 +11,11 @@ function op(ϕ)
 end
 
 function run_m²(ϕ, m²0)
-    maxt = L^3
-    skip = 100
+    maxt = div(L^4,8)
+    skip = div(L^2,8)
     mass_id = round(m²0, digits=3)
 
-    open("/home/josh/modelA_2D/measurements/magnetization_L_$(L)_mass_$(mass_id)_id_$(seed).dat", "w") do io
+    open("/home/jkott/perm/modelA_2D/measurements/magnetization_L_$(L)_mass_$(mass_id)_id_$(seed).dat", "w") do io
     for i in 0:maxt
         (M, ϕ2) = op(ϕ)
         Printf.@printf(io, "%i %f %f\n", i, M, ϕ2)
@@ -32,10 +32,10 @@ end
 function main()
     @init_state
 
-    thermalize(ϕ, -3.0, L^4)
+    thermalize(ϕ, -3.5, L^3)
 
-    for m²0 in -3.0:-0.005:-3.5
-        thermalize(ϕ, m²0, L^3)
+    for m²0 in -3.5:-0.01:-4.0
+        thermalize(ϕ, m²0, L^2)
         run_m²(ϕ, m²0)
     end
 end
